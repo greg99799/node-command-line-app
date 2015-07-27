@@ -11,7 +11,7 @@ function printMessage(username, badgeCount, points) {
 }
 
 //Connect to API URL (http://teamtreehouse.com/username.json)
-var request = http.get('teamtreehouse.com/' + username + '.json', function(response){
+var request = http.get('http://teamtreehouse.com/' + username + '.json', function(response){
   console.dir(response.statusCode);
 //Read the data
 
@@ -20,5 +20,5 @@ var request = http.get('teamtreehouse.com/' + username + '.json', function(respo
 });
 
 request.on("error", function(error){
-  console.log("Problem with request: " + error.message);
+  console.error("Problem with connection: " + error.message);
 });
