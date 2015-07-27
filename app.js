@@ -24,7 +24,7 @@ var request = http.get('http://teamtreehouse.com/' + username + '.json', functio
   });
   response.on('end', function(){
     //Parse the data
-    JSON.parse(body);
+    JSON.parse(body); // does NOT work!
     console.log(typeof body);
   });
 
