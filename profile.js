@@ -13,38 +13,41 @@ function printError(error){
 }
 
 
-function get(username) {
+function get(userArray) {
   //Connect to API URL (http://teamtreehouse.com/username.json)
-  var request = http.get('http://teamtreehouse.com/' + username + '.json', function(response){
-    var body = "";
-    // console.log('HEADERS: ' + JSON.stringify(response.headers.server));
-    response.setEncoding('utf8');
-    //Read the data
-    response.on('data', function(chunk){
-      body += chunk;
-      // console.log(body);
-    });
-    response.on('end', function(){
-      if (response.statusCode === 200) {
-        try {
-          //Parse the data
-          var parsedBody = JSON.parse(body); // DOES work! assign it to a variable ya jackass
-          // console.log(parsedBody.profile_name);
-          //Print the data
-          printMessage(username, parsedBody.badges.length, parsedBody.points.JavaScript);
-        } catch (error) {
-            //Parse Error
-            printError({message: "parsing error"});
-          }  
-      } else {
-          //Status Code error
-          printError({message: "There was an error in getting profile " + username});
-      }
-    });
+    for (i = 0; i < userArray.length; i++) {
+      console.log("I am " + userArray[i]);
+      var request = http.get('http://teamtreehouse.com/' + userArray[i] + '.json', function(response){
+        console.log("I am " + userArray[i]);
+      var body = "";
+      //Read the data
+      response.on('data', function(chunk){
+        body += chunk;
+        // console.log(body);
+      });
+      response.on('end', function(){
+        if (response.statusCode === 200) {
+          try {
+            //Parse the data
+            var parsedBody = JSON.parse(body); // DOES work! assign it to a variable ya jackass
+            // console.log(parsedBody.profile_name);
+            //Print the data
+            printMessage(userArray[i], parsedBody.badges.length, parsedBody.points.JavaScript);
+            // console.log("I am " + userArray[i]);
+          } catch (error) {
+              //Parse Error
+              printError({message: "parsing error"});
+            }  
+        } else {
+            //Status Code error
+            printError({message: "There was an error in getting profile " + userArray[i]});
+        }
+      });
       // console.log(response.statusCode)
       request.on("error", printError);
-  });
-
+    });
+  } 
+  
 }
 
 module.exports.getTheThingy = get;

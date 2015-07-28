@@ -1,4 +1,8 @@
 
 var profile = require("./profile")
-profile.getTheThingy("gregknudsen");
+
+var users = ["chalkers", "gregknudsen"];
+
+profile.getTheThingy(users);
+// profile.getTheThingy("chalkers");
 
